@@ -8,15 +8,15 @@ import com.onroad.common.model.base.BaseBlog;
  * userId
  */
 @SuppressWarnings("serial")
-public class Blog extends BaseBlog<Blog> {
+public class Quotation extends BaseBlog<Quotation> {
 
-	public static final Blog me = new Blog();
+	public static final Quotation me = new Quotation();
 
 	/**
 	 * 所有 sql 与业务逻辑写在 Model 或 Service 中，不要写在 Controller 中，养成好习惯，有利于大型项目的开发与维护
 	 */
-	public Page<Blog> paginate(int pageNumber, int pageSize) {
+	public Page<Quotation> paginate(int pageNumber, int pageSize) {
 		return paginate(pageNumber, pageSize, "select *",
-				"from blog order by id asc");
+				"from quotation order by id asc");
 	}
 }

@@ -1,4 +1,4 @@
-package com.onroad.index;
+package com.onroad.controller;
 
 import com.jfinal.core.Controller;
 
@@ -7,6 +7,6 @@ import com.jfinal.core.Controller;
  */
 public class IndexController extends Controller {
 	public void index() {
-		render("index.html");
+		render("index.jsp");
 	}
 }
