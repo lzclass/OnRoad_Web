@@ -2,55 +2,71 @@ package com.onroad.controller;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.onroad.interceptor.AuthInterceptor;
-import com.onroad.service.UserService;
+import com.onroad.common.MyConstants;
+import com.onroad.interceptor.UserCheckInterceptor;
+import com.onroad.model.User;
 import com.onroad.validator.LoginValidator;
+import com.onroad.validator.RegistValidator;
+import com.onroad.validator.UpdateUserValidator;
 
 /**
- * Created by reeco_000 on 2015/7/22.
+ * Created with IntelliJ IDEA.
+ * Author: StevenChow
+ * Date: 13-5-6
  */
 public class UserController extends Controller {
+    public void index(){
+        setAttr("user", User.dao.get(getParaToInt(0, 0)));
+        render("/user/user.html");
+    }
 
-	private UserService userService = new UserService();
+    @Before(LoginValidator.class)
+    public void login(){
+        String email = getPara("email");
+        String password = getPara("password");
+        User user = User.dao.getByEmailAndPassword(email, password);
+        if (user != null){
+            setCookie("email", email, 3600*24*30);
+            if (getParaToBoolean("rememberPassword")){
+                setCookie("password", password, 3600*24*30);
+            }
+            setSessionAttr("user", user);
+            if(email.equals(MyConstants.ADMIN_EMAIL)){
+                setSessionAttr("isAdminLogin", "true");
+            }
+            redirect("/");
+        }else{
+            setAttr("msg", "用户名或密码错误");
+            render("/user/login.html");
+        }
+    }
 
-	public void index() {
-	}
+    public void logout(){
+        removeSessionAttr("user");
+        removeCookie("email");
+        removeCookie("password");
+        redirect("/");
+    }
 
-	@Before(LoginValidator.class)
-	public void login() {
-		String username = getPara("username");
-		String password = getPara("password");
-		boolean loginCheck = userService.login(username, password);
-		if (loginCheck) {
-			renderJson("10000");
-			getSession().setAttribute("flag", true);
-		}
+    @Before(RegistValidator.class)
+    public void save(){
+        User user = getModel(User.class);
+        user.mySave();
+        setAttr("msg", "恭喜你，注册成功，请登录：");
+        render("/user/login.html");
+    }
 
-		else
-			renderJson("10001");
-	}
+    @Before(UserCheckInterceptor.class)
+    public void edit(){
+        setAttr("user", User.dao.get(getParaToInt(0, 0)));
+        render("/user/edit.html");
+    }
 
-	public void register() {
-		String username = getPara("username");
-		String password = getPara("password");
-		boolean result = userService.add(username, password);
-		if (result)
-			renderJson("10010");
-		else
-			renderJson("10011");
-	}
-
-	@Before(AuthInterceptor.class)
-	public void show() {
-		renderJsp("user.jsp");
-	}
-
-	public void image() {
-		try {
-			getFile(getPara("img"), "UTF-8");
-			renderJson("20010");
-		} catch (Exception e) {
-			renderJson("20012");
-		}
-	}
+    @Before(UpdateUserValidator.class)
+    public void update(){
+        User user = getModel(User.class);
+        user.myUpdate();
+        setAttr("user", user);
+        render("/user/user.html");
+    }
 }
