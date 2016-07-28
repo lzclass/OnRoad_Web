@@ -1,5 +1,8 @@
 package com.onroad.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.onroad.common.MyConstants;
@@ -15,6 +18,7 @@ import com.onroad.validator.UpdateUserValidator;
  * Date: 13-5-6
  */
 public class UserController extends Controller {
+
     public void index(){
         setAttr("user", User.dao.get(getParaToInt(0, 0)));
         render("/user/user.html");

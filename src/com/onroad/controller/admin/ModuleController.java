@@ -1,5 +1,8 @@
 package com.onroad.controller.admin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.onroad.interceptor.AdminInterceptor;
@@ -38,4 +41,5 @@ public class ModuleController extends Controller {
         Module.dao.deleteById(getParaToInt());
         index();
     }
+
 }

@@ -126,6 +126,6 @@ public class Myconfig extends JFinalConfig {
 	 * 第二个参数是设置访问的端口号 第三个参数是设置该项目的访问根目录 第四个参数是设置jetty每隔几秒钟扫描文件变化并重启应用
 	 */
 	public static void main(String[] args) throws Exception {
-		JFinal.start("WebRoot", 80, "/", 5);
+		JFinal.start("WebRoot", 81, "/", 5);
 	}
 }

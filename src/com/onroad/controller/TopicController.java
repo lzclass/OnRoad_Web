@@ -1,11 +1,15 @@
 package com.onroad.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.onroad.interceptor.AdminInterceptor;
 import com.onroad.interceptor.LoginInterceptor;
 import com.onroad.model.Post;
 import com.onroad.model.Topic;
+import com.onroad.model.User;
 import com.onroad.validator.PostValidator;
 import com.onroad.validator.TopicValidator;
 
@@ -15,6 +19,17 @@ import com.onroad.validator.TopicValidator;
  * Date: 13-3-28
  */
 public class TopicController extends Controller {
+	public Map responseM = new HashMap();//用来存放返回的数据（json）
+    public void renderJson(String jsonText) {
+		//经过前面的验证，已经确定用户登录成功。
+		//查询用户基本信息，放入session（基本信息主要为，用户名，角色，id等，具体看个人的情况，想放什么就放什么）
+		String sql = "select id,username,phone from users where phone=? limit 1";
+		User user = User.dao.findFirst(sql, getPara("phone"));
+		setSessionAttr("user", user);
+		responseM.put("state", "success");
+		//返回成功登录的标志
+		renderJson(responseM);
+    }
     public void index(){
         forwardAction("/post/" + getParaToInt(0));
     }
