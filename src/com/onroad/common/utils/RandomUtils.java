@@ -1,4 +1,4 @@
-package com.mlongbo.jfinal.common.utils;
+package com.onroad.common.utils;
 
 import java.util.Random;
 import java.util.UUID;

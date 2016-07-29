@@ -1,4 +1,4 @@
-package com.mlongbo.jfinal.common.utils;
+package com.onroad.common.utils;
 
 /**
  * @author malongbo
@@ -6,11 +6,13 @@ package com.mlongbo.jfinal.common.utils;
  * @package com.pet.project.common.token
  */
 public class TokenUtil {
-    /**
-     * 生成token号码
-     * @return token号码
-     */
-    public static String generateToken() {
-        return RandomUtils.randomCustomUUID().concat(RandomUtils.randomString(6));
-    }
+	/**
+	 * 生成token号码
+	 * 
+	 * @return token号码
+	 */
+	public static String generateToken() {
+		return RandomUtils.randomCustomUUID().concat(
+				RandomUtils.randomString(6));
+	}
 }

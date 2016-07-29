@@ -19,5 +19,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/ext/ueditor/jsp/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/ext/ueditor/jsp/ueditor.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/HikariCP-2.4.6.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

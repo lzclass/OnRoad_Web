@@ -1,11 +1,12 @@
 package com.onroad.router;
 
 import com.jfinal.config.Routes;
+import com.onroad.action.IndexAction;
 
 /**
- * @author malongbo
- * @date 2015/2/13
- * @package com.snailbaba.router
+ * @description 
+ * @author liuzhao
+ * @date 2016年7月29日上午9:57:01
  */
 public class ActionRouter extends Routes{
     @Override

@@ -2,6 +2,7 @@ package com.onroad.version;
 
 import org.dom4j.Attribute;
 import org.dom4j.Document;
+import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -12,7 +13,9 @@ import java.io.*;
 import java.util.*;
 
 /**
- * @author malongbo
+ * @description 
+ * @author liuzhao
+ * @date 2016年7月29日上午10:13:39
  */
 public class VersionProperty {
 
