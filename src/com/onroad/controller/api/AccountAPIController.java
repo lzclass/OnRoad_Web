@@ -1,5 +1,14 @@
 package com.onroad.controller.api;
 
+import static com.onroad.model.User.AVATAR;
+import static com.onroad.model.User.CREATION_DATE;
+import static com.onroad.model.User.EMAIL;
+import static com.onroad.model.User.LOGIN_NAME;
+import static com.onroad.model.User.NICK_NAME;
+import static com.onroad.model.User.PASSWORD;
+import static com.onroad.model.User.SEX;
+import static com.onroad.model.User.user;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +31,6 @@ import com.onroad.config.AppProperty;
 import com.onroad.interceptor.TokenInterceptor;
 import com.onroad.model.RegisterCode;
 import com.onroad.model.User;
-
-import static com.onroad.model.User.*;
 
 /**
  * 用户账号相关的接口*

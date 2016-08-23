@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.onroad.common.XmlProperty;
 
 /**
- * @author malongbo
+ * @author liuzhao
  */
 public class AppProperty {
     private XmlProperty property;

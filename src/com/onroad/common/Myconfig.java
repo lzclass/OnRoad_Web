@@ -68,7 +68,7 @@ public class Myconfig extends JFinalConfig {
 			password = getProperty("password");
 		} else {
 			JSONObject json = JSONObject.parseObject(this.json)
-					.getJSONArray("mysql-5.1").getJSONObject(0)
+					.getJSONArray("mysql-5.6.25").getJSONObject(0)
 					.getJSONObject("credentials");
 			username = json.getString("username");
 			password = json.getString("password");
@@ -79,7 +79,7 @@ public class Myconfig extends JFinalConfig {
 				driver);
 		druidPlugin.setInitialSize(3).setMaxActive(10);
 		me.add(druidPlugin);
-		// 配置ActiveRecord插件
+		// 配置ActiveRecord插件 
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 		if (isLocal) {
 			arp.setShowSql(true);
@@ -126,6 +126,6 @@ public class Myconfig extends JFinalConfig {
 	 * 第二个参数是设置访问的端口号 第三个参数是设置该项目的访问根目录 第四个参数是设置jetty每隔几秒钟扫描文件变化并重启应用
 	 */
 	public static void main(String[] args) throws Exception {
-		JFinal.start("WebRoot", 81, "/", 5);
+		JFinal.start("WebRoot", 80, "/", 5);
 	}
 }

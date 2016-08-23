@@ -1,6 +1,5 @@
 package com.onroad.common.utils;
 
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +19,7 @@ public class SMSUtils {
 	 */
 	public static final boolean isMobileNo(String mobile) {
 		Pattern p = Pattern
-				.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+				.compile("^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\\d{8}$");
 		Matcher m = p.matcher(mobile);
 		return m.matches();
 	}

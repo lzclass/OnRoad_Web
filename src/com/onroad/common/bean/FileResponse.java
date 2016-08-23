@@ -3,7 +3,7 @@ package com.onroad.common.bean;
 import java.util.List;
 
 /**
- * @description 
+ * @description 文件
  * @author liuzhao
  * @date 2016年7月28日下午4:01:06
  */

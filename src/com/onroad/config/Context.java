@@ -3,7 +3,7 @@ package com.onroad.config;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author malongbo
+ * @author liuzhao
  */
 public class Context {
     private static final Context instance = new Context();
