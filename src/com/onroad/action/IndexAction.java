@@ -10,9 +10,9 @@ import com.onroad.model.RegisterCode;
  * @date 2016年7月29日上午10:08:31
  */
 public class IndexAction extends Controller {
-    public void index () {
-        render("index.jsp");
-    }
+//    public void index () {
+//        render("index.jsp");
+//    }
     
     public void doc() {
         render("doc/index.html");

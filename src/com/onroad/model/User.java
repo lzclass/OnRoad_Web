@@ -23,7 +23,7 @@ public class User extends Model<User> {
 	public static String SEX = "sex";
 	public static String EMAIL = "email";
 	public static String STATUS = "status";
-	public static String CREATION_DATE = "creationDate";
+	public static String CREATE_DATE = "createDate";
 	public static String AVATAR = "avatar";
 
 	private static final long serialVersionUID = 1L;
@@ -64,13 +64,13 @@ public class User extends Model<User> {
 	public User getByEmailAndPassword(String email, String password) {
 		return dao
 				.findFirst(
-						"select id, username, email, password from user where email=? and password=?",
+						"select id, loginName, email, password from user where email=? and password=?",
 						email, getMD5(password.getBytes()));
 	}
 
 	/* other */
 	public void mySave() {
-		HtmlTagKit.processHtmlSpecialTag(this, "username", "headImg",
+		HtmlTagKit.processHtmlSpecialTag(this, "loginName", "headImg",
 				"blogUrl", "feeling");
 		String password = getMD5(this.getStr("password").getBytes());
 		this.set("password", password).set("registDate", new Date());
@@ -78,7 +78,7 @@ public class User extends Model<User> {
 	}
 
 	public void myUpdate() {
-		HtmlTagKit.processHtmlSpecialTag(this, "username", "headImg",
+		HtmlTagKit.processHtmlSpecialTag(this, "loginName", "headImg",
 				"blogUrl", "feeling");
 		this.update();
 		removeCache(this.getInt("id"));
@@ -89,9 +89,9 @@ public class User extends Model<User> {
 				email) != null;
 	}
 
-	public boolean containUsername(String username) {
+	public boolean containLoginName(String loginName) {
 		return dao.findFirst(
-				"select username from user where username=? limit 1", username) != null;
+				"select loginName from user where loginName=? limit 1", loginName) != null;
 	}
 
 	public boolean containEmailExceptThis(int userID, String email) {
@@ -100,10 +100,10 @@ public class User extends Model<User> {
 				email, userID) != null;
 	}
 
-	public boolean containUsernameExceptThis(int userID, String username) {
+	public boolean containLoginNameExceptThis(int userID, String loginName) {
 		return dao.findFirst(
-				"select username from user where username=? and id!=? limit 1",
-				username, userID) != null;
+				"select loginName from user where loginName=? and id!=? limit 1",
+				loginName, userID) != null;
 	}
 
 	/* private */

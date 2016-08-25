@@ -1,23 +1,38 @@
 package com.onroad.common;
 
+import org.bee.tl.core.GroupTemplate;
+import org.bee.tl.ext.jfinal.BeetlRenderFactory;
+
 import com.alibaba.fastjson.JSONObject;
-import com.jfinal.config.*;
+import com.jfinal.config.Constants;
+import com.jfinal.config.Handlers;
+import com.jfinal.config.Interceptors;
+import com.jfinal.config.JFinalConfig;
+import com.jfinal.config.Plugins;
+import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.kit.StringKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
-import com.onroad.controller.*;
-import com.onroad.controller.admin.AdminController;
-import com.onroad.controller.admin.ModuleController;
+import com.jfinal.render.ViewType;
+import com.onroad.config.Context;
 import com.onroad.ext.beetl.IsSame;
 import com.onroad.ext.beetl.PrintTime;
+import com.onroad.handler.APINotFoundHandler;
+import com.onroad.handler.ContextHandler;
+import com.onroad.interceptor.ErrorInterceptor;
 import com.onroad.interceptor.GlobalInterceptor;
-import com.onroad.model.*;
-
-import org.bee.tl.core.GroupTemplate;
-import org.bee.tl.ext.jfinal.BeetlRenderFactory;
+import com.onroad.model.FeedBack;
+import com.onroad.model.Module;
+import com.onroad.model.Post;
+import com.onroad.model.RegisterCode;
+import com.onroad.model.Reply;
+import com.onroad.model.Topic;
+import com.onroad.model.User;
+import com.onroad.router.APIRouter;
+import com.onroad.router.ActionRouter;
 
 /**
  * 感谢 @波总 的JFinal，@闲.大赋 的beetl，向你们致敬！ ：） 如有问题，可以加 JFinal-BBS QQ群：206034609 讨论
@@ -32,7 +47,9 @@ public class Myconfig extends JFinalConfig {
 	public void configConstant(Constants me) {
 		loadPropertyFile("classes/config.txt");
 		if (isLocal) {
-			me.setDevMode(true);
+			me.setDevMode(true);// 开启开发模式
+			me.setEncoding("UTF-8");
+//			me.setViewType(ViewType.JSP);
 		}
 		me.setError404View("/common/404.html");
 		me.setError500View("/common/500.html");
@@ -48,12 +65,16 @@ public class Myconfig extends JFinalConfig {
 	 * 配置路由
 	 */
 	public void configRoute(Routes me) {
-		me.add("/", IndexController.class).add("/topic", TopicController.class);
-		me.add("/post", PostController.class).add("/reply",
-				ReplyController.class);
-		me.add("/user", UserController.class);
-		me.add("/admin", AdminController.class).add("/admin/module",
-				ModuleController.class);
+		me.add(new APIRouter());// 接口路由
+		me.add(new ActionRouter()); // 页面路由
+
+		// me.add("/", IndexController.class).add("/topic",
+		// TopicController.class);
+		// me.add("/post", PostController.class).add("/reply",
+		// ReplyController.class);
+		// me.add("/user", UserController.class);
+		// me.add("/admin", AdminController.class).add("/admin/module",
+		// ModuleController.class);
 	}
 
 	/**
@@ -79,7 +100,7 @@ public class Myconfig extends JFinalConfig {
 				driver);
 		druidPlugin.setInitialSize(3).setMaxActive(10);
 		me.add(druidPlugin);
-		// 配置ActiveRecord插件 
+		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 		if (isLocal) {
 			arp.setShowSql(true);
@@ -90,6 +111,11 @@ public class Myconfig extends JFinalConfig {
 		me.add(arp);
 		// 缓存插件
 		me.add(new EhCachePlugin());
+
+		arp.addMapping("user", User.USER_ID, User.class);// 用户表
+		arp.addMapping("registerCode", RegisterCode.MOBILE,
+				RegisterCode.class); // 注册验证码对象
+		arp.addMapping("feedback", FeedBack.class); // 意见反馈表
 	}
 
 	/**
@@ -98,18 +124,23 @@ public class Myconfig extends JFinalConfig {
 	public void configInterceptor(Interceptors me) {
 		me.add(new SessionInViewInterceptor());
 		me.add(new GlobalInterceptor());
+		me.add(new ErrorInterceptor());
 	}
 
 	/**
 	 * 配置处理器
 	 */
 	public void configHandler(Handlers me) {
+		me.add(new ContextHandler());
+		me.add(new APINotFoundHandler());
 	}
 
 	/**
 	 * 初始化常量
 	 */
 	public void afterJFinalStart() {
+		Context.me().init();
+
 		MyConstants.TOPIC_PAGE_SIZE = getPropertyToInt("topic_page_size", 12);
 		MyConstants.POST_PAGE_SIZE = getPropertyToInt("post_page_size", 8);
 		MyConstants.REPLY_PAGE_SIZE = getPropertyToInt("reply_page_size", 5);
@@ -118,6 +149,11 @@ public class Myconfig extends JFinalConfig {
 		MyConstants.PAGE_SIZE_FOR_ADMIN = getPropertyToInt(
 				"page_size_for_admin", 30);
 		MyConstants.ADMIN_EMAIL = getProperty("admin_email");
+	}
+
+	@Override
+	public void beforeJFinalStop() {
+		Context.me().destroy();
 	}
 
 	/**

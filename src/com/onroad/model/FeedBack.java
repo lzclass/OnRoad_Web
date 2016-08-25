@@ -25,10 +25,10 @@ public class FeedBack extends Model<FeedBack> {
     /**
      * 反馈时间*
      */
-	public static String CREATION_DATE = "creationDate";
+	public static String CREATE_DATE = "createDate";
 
     /**
      * 反馈内容*
      */
-	public static String SUGGESTION = "suggestion";
+	public static String CONTENT = "content";
 }

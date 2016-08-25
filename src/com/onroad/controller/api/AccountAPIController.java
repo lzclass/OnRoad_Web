@@ -1,7 +1,7 @@
 package com.onroad.controller.api;
 
 import static com.onroad.model.User.AVATAR;
-import static com.onroad.model.User.CREATION_DATE;
+import static com.onroad.model.User.CREATE_DATE;
 import static com.onroad.model.User.EMAIL;
 import static com.onroad.model.User.LOGIN_NAME;
 import static com.onroad.model.User.NICK_NAME;
@@ -57,7 +57,7 @@ public class AccountAPIController extends BaseAPIController {
 			return;
 		}
 		// 检查手机号码是否被注册
-		boolean exists = Db.findFirst("SELECT * FROM t_user WHERE loginName=?",
+		boolean exists = Db.findFirst("SELECT * FROM user WHERE loginName=?",
 				loginName) != null;
 		renderJson(new BaseResponse(exists ? Code.SUCCESS : Code.FAIL,
 				exists ? "registered" : "unregistered"));
@@ -81,7 +81,7 @@ public class AccountAPIController extends BaseAPIController {
 		}
 
 		// 检查手机号码是否被注册
-		if (Db.findFirst("SELECT * FROM t_user WHERE loginName=?", loginName) != null) {
+		if (Db.findFirst("SELECT * FROM user WHERE loginName=?", loginName) != null) {
 			renderJson(new BaseResponse(Code.ACCOUNT_EXISTS,
 					"mobile already registered"));
 			return;
@@ -99,8 +99,7 @@ public class AccountAPIController extends BaseAPIController {
 				loginName).set(RegisterCode.CODE, smsCode);
 
 		// 保存数据
-		if (Db.findFirst("SELECT * FROM t_register_code WHERE mobile=?",
-				loginName) == null) {
+		if (Db.findFirst("SELECT * FROM registerCode WHERE mobile=?", loginName) == null) {
 			registerCode.save();
 		} else {
 			registerCode.update();
@@ -134,7 +133,7 @@ public class AccountAPIController extends BaseAPIController {
 		}
 
 		// 检查账户是否已被注册
-		if (Db.findFirst("SELECT * FROM t_user WHERE loginName=?", loginName) != null) {
+		if (Db.findFirst("SELECT * FROM user WHERE loginName=?", loginName) != null) {
 			renderJson(new BaseResponse(Code.ACCOUNT_EXISTS,
 					"mobile already registered"));
 			return;
@@ -142,7 +141,7 @@ public class AccountAPIController extends BaseAPIController {
 
 		// 检查验证码是否有效, 如果业务不需要，则无需保存此段代码
 		if (Db.findFirst(
-				"SELECT * FROM t_register_code WHERE mobile=? AND code = ?",
+				"SELECT * FROM registerCode WHERE mobile=? AND code = ?",
 				loginName, code) == null) {
 			renderJson(new BaseResponse(Code.CODE_ERROR, "code is invalid"));
 			return;
@@ -154,11 +153,11 @@ public class AccountAPIController extends BaseAPIController {
 		new User().set("userId", userId).set(LOGIN_NAME, loginName)
 				.set(PASSWORD, StringUtils.encodePassword(password, "md5"))
 				.set(NICK_NAME, nickName)
-				.set(CREATION_DATE, DateUtils.getNowTimeStamp()).set(SEX, sex)
+				.set(CREATE_DATE, DateUtils.getNowTimeStamp()).set(SEX, sex)
 				.set(AVATAR, avatar).save();
 
 		// 删除验证码记录
-		Db.update("DELETE FROM t_register_code WHERE mobile=? AND code = ?",
+		Db.update("DELETE FROM registerCode WHERE mobile=? AND code = ?",
 				loginName, code);
 
 		// 返回数据
@@ -177,7 +176,7 @@ public class AccountAPIController extends BaseAPIController {
 				.put(password, "password can not be null"))) {
 			return;
 		}
-		String sql = "SELECT * FROM t_user WHERE loginName=? AND password=?";
+		String sql = "SELECT * FROM user WHERE loginName=? AND password=?";
 		User nowUser = User.user.findFirst(sql, loginName,
 				StringUtils.encodePassword(password, "md5"));
 		LoginResponse response = new LoginResponse();
