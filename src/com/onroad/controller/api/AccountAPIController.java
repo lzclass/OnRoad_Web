@@ -40,7 +40,7 @@ import com.onroad.model.User;
  * /api/account/profile 修改用户资料: PUT /api/account/profile 修改密码: PUT
  * /api/account/password 修改头像: PUT /api/account/avatar
  *
- * @author malongbo
+ * @author liuzhao
  */
 @Before(TokenInterceptor.class)
 public class AccountAPIController extends BaseAPIController {

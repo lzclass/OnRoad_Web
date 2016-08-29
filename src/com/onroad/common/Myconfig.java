@@ -16,7 +16,6 @@ import com.jfinal.kit.StringKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
-import com.jfinal.render.ViewType;
 import com.onroad.config.Context;
 import com.onroad.ext.beetl.IsSame;
 import com.onroad.ext.beetl.PrintTime;
