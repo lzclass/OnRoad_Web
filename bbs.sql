@@ -10,10 +10,29 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2016-08-29 17:34:38
+Date: 2016-09-01 17:36:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for dayword
+-- ----------------------------
+DROP TABLE IF EXISTS `dayword`;
+CREATE TABLE `dayword` (
+  `id` int(11) NOT NULL,
+  `dateTime` datetime DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `imageUrl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dayword
+-- ----------------------------
+INSERT INTO `dayword` VALUES ('1', '2016-09-01 17:33:43', '须交有道之人,莫结无义之友。饮清静之茶，莫贪花色之酒。开方便之门，闲是非之口。', '未知', 'http://t-1.tuzhan.com/082c956583e3/c-2/l/2013/05/01/06/0caff879c1094324876d1c6f178acb4c.jpg');
+INSERT INTO `dayword` VALUES ('2', '2016-09-02 17:34:56', '一个人，一辈子最重要的事，其实就是选对身边的人。炊烟起了，我在门口等你；夕阳下了，我在山边等你；叶子黄了，我在树下等你；月儿弯了，我在十五等你；细雨来了，我在伞下等你；流水冻了，我在河畔等你；生命累了，我在天堂等你；我们老了，我在来生等你。', '行尽天涯', 'http://pic41.nipic.com/20140505/6099952_121948164122_2.jpg');
 
 -- ----------------------------
 -- Table structure for feedback
