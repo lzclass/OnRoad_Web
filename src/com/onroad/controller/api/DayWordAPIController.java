@@ -23,7 +23,7 @@ public class DayWordAPIController extends BaseAPIController {
 	 */
 	@ClearInterceptor
 	public void getTodayWord() {
-		String dateString = DateUtils.getNowTime("yyyy-mm-dd");
+		String dateString = DateUtils.getNowTime("yyyy-MM-dd");
 		String sql = "SELECT * FROM dayword where DATE_FORMAT(dateTime,'%Y-%m-%d')=?";
 		DayWord dayWord = DayWord.dao.findFirst(sql, dateString);
 		DatumResponse response = new DatumResponse();

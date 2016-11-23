@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2016-09-02 13:55:41
+Date: 2016-11-23 11:31:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,19 +20,22 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `dayword`;
 CREATE TABLE `dayword` (
-  `id` int(11) NOT NULL,
-  `dateTime` datetime DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dateTime` date DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
-  `author` varchar(255) DEFAULT NULL,
+  `textAuthor` varchar(255) DEFAULT NULL,
   `imageUrl` varchar(255) DEFAULT NULL,
+  `imageAuthor` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dayword
 -- ----------------------------
-INSERT INTO `dayword` VALUES ('1', '2016-09-01 17:33:43', '须交有道之人,莫结无义之友。饮清静之茶，莫贪花色之酒。开方便之门，闲是非之口。', '未知', 'http://t-1.tuzhan.com/082c956583e3/c-2/l/2013/05/01/06/0caff879c1094324876d1c6f178acb4c.jpg');
-INSERT INTO `dayword` VALUES ('2', '2016-09-02 17:34:56', '一个人，一辈子最重要的事，其实就是选对身边的人。炊烟起了，我在门口等你；夕阳下了，我在山边等你；叶子黄了，我在树下等你；月儿弯了，我在十五等你；细雨来了，我在伞下等你；流水冻了，我在河畔等你；生命累了，我在天堂等你；我们老了，我在来生等你。', '行尽天涯', 'http://pic41.nipic.com/20140505/6099952_121948164122_2.jpg');
+INSERT INTO `dayword` VALUES ('1', '2016-09-01', '须交有道之人,莫结无义之友。饮清静之茶，莫贪花色之酒。开方便之门，闲是非之口。', '行尽天涯', 'http://t-1.tuzhan.com/082c956583e3/c-2/l/2013/05/01/06/0caff879c1094324876d1c6f178acb4c.jpg', null);
+INSERT INTO `dayword` VALUES ('2', '2016-09-02', '一个人，一辈子最重要的事，其实就是选对身边的人。炊烟起了，我在门口等你；夕阳下了，我在山边等你；叶子黄了，我在树下等你；月儿弯了，我在十五等你；细雨来了，我在伞下等你；流水冻了，我在河畔等你；生命累了，我在天堂等你；我们老了，我在来生等你。', '行尽天涯', 'http://pic41.nipic.com/20140505/6099952_121948164122_2.jpg', null);
+INSERT INTO `dayword` VALUES ('3', '2016-11-23', '清澈的雨水，飘过年轻的日子，洗过比雨更清澈的眼睛，顺着从指缝滴去的往事，闪现熟悉的身影． 看不透命运的掌纹，看不透命运的安排，而在命运之外，是否有人，曾经在等待有雨的黄昏，走在雨里，走在往事里，往事在水里．狼牙月,窗影残,烟波浆声淇水寒,梦中丝竹轻吟唱,抚琴人泪满衫.且自临风把酒,笑沧桑!', '行尽天涯', 'http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1611/13/c13/29883521_1479040217470_mthumb.jpg', null);
+INSERT INTO `dayword` VALUES ('4', '2016-11-24', '有一种缘，放手后成为风景。有一颗心，坚持中方显真诚。你懂了，我接近天堂;你不懂，我成为过往', '陌生人', 'http://tupian.enterdesk.com/2015/gha/10/1702/03.jpg', null);
 
 -- ----------------------------
 -- Table structure for feedback
@@ -65,7 +68,7 @@ CREATE TABLE `joke` (
   `loveCount` int(11) DEFAULT NULL COMMENT '点赞总数',
   `commentCount` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37307 DEFAULT CHARSET=gbk;
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=gbk;
 
 -- ----------------------------
 -- Records of joke
@@ -271,6 +274,21 @@ INSERT INTO `joke` VALUES ('199', '足球与爸爸', '&nbsp;<br>\n&nbsp;&nbsp;&n
 INSERT INTO `joke` VALUES ('200', '理直气壮', '&nbsp;<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;海伦老师在语文课时提问道：“要么给我自由，要么让我死<br>\n去，这句话是谁说的？知道的同学请举手。”教室里悄无声息，无一<br>\n人举手。海伦老师颇感失望，这时一个胖胖的小个子同学用极不熟<br>\n练的英语回答：“1775年，巴特利克·亨利讲的。”<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“对，同学们，现在回答的是日本同学。你们土生土长的美国<br>\n人却不能回答，而来自异国他乡的日本同学却能正确回答，这是多么<br>\n可悲可叹啊！”<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这时，教室的最后几排传来一声非同小可的怪叫：“把日本人<br>\n干掉！”海伦老师听到这叫声，气得大声吼道：“谁？这是谁说的？”<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;沉默了一会，一个美国同学理直气壮地站起来说道：“1945<br>\n年，杜鲁门总统说的！”<br>\n <br>\n', '27', '18', '2007-10-10 00:00:00', null, null, null);
 
 -- ----------------------------
+-- Table structure for like
+-- ----------------------------
+DROP TABLE IF EXISTS `like`;
+CREATE TABLE `like` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of like
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for module
 -- ----------------------------
 DROP TABLE IF EXISTS `module`;
@@ -282,7 +300,7 @@ CREATE TABLE `module` (
   `creattime` datetime DEFAULT NULL,
   `author` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of module
@@ -308,6 +326,21 @@ CREATE TABLE `post` (
 -- Records of post
 -- ----------------------------
 INSERT INTO `post` VALUES ('27', '16', '11', '<p>^O^</p>', '2013-05-17 13:04:51', '', null);
+
+-- ----------------------------
+-- Table structure for read
+-- ----------------------------
+DROP TABLE IF EXISTS `read`;
+CREATE TABLE `read` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of read
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for registercode
