@@ -87,10 +87,6 @@ public class Topic extends Model<Topic>{
     public User getUser(){
         return User.dao.get(this.getInt("userID"));
     }
-    public Module getModule(){
-        return Module.dao.get(this.getInt("moduleID"));
-    }
-
     /* private */
     private void removeThisTopicCache() {
         CacheKit.remove(TOPIC_CACHE, this.getInt("id"));

@@ -3,7 +3,6 @@ package com.onroad.common;
 import org.bee.tl.core.GroupTemplate;
 import org.bee.tl.ext.jfinal.BeetlRenderFactory;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -14,8 +13,6 @@ import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.kit.StringKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
-import com.jfinal.plugin.c3p0.C3p0Plugin;
-import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.onroad.config.Context;
 import com.onroad.ext.beetl.IsSame;
@@ -23,14 +20,9 @@ import com.onroad.ext.beetl.PrintTime;
 import com.onroad.handler.APINotFoundHandler;
 import com.onroad.handler.ContextHandler;
 import com.onroad.interceptor.ErrorInterceptor;
-import com.onroad.interceptor.GlobalInterceptor;
 import com.onroad.model.DayWord;
 import com.onroad.model.FeedBack;
-import com.onroad.model.Module;
-import com.onroad.model.Post;
 import com.onroad.model.RegisterCode;
-import com.onroad.model.Reply;
-import com.onroad.model.Topic;
 import com.onroad.model.User;
 import com.onroad.plugin.HikariCPPlugin;
 import com.onroad.router.APIRouter;
@@ -129,7 +121,6 @@ public class Myconfig extends JFinalConfig {
 		arp.addMapping("registerCode", RegisterCode.MOBILE, RegisterCode.class); // 注册验证码对象
 		arp.addMapping("feedback", FeedBack.class); // 意见反馈表
 		arp.addMapping("dayword", DayWord.class); // 每日一言表
-		arp.addMapping("module", Module.class); 
 
 	}
 
@@ -139,7 +130,6 @@ public class Myconfig extends JFinalConfig {
 	@Override
 	public void configInterceptor(Interceptors me) {
 		me.add(new SessionInViewInterceptor());
-		me.add(new GlobalInterceptor());
 		me.add(new ErrorInterceptor());
 	}
 

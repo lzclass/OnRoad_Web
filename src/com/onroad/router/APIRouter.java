@@ -1,13 +1,6 @@
 package com.onroad.router;
 
 import com.jfinal.config.Routes;
-import com.onroad.controller.IndexController;
-import com.onroad.controller.PostController;
-import com.onroad.controller.ReplyController;
-import com.onroad.controller.TopicController;
-import com.onroad.controller.UserController;
-import com.onroad.controller.admin.AdminController;
-import com.onroad.controller.admin.ModuleController;
 import com.onroad.controller.api.AccountAPIController;
 import com.onroad.controller.api.CommonAPIController;
 import com.onroad.controller.api.DayWordAPIController;

@@ -11,15 +11,6 @@
            overflowToDisk="true"
            diskSpoolBufferSizeMB="10" />
 
-    <!-- module -->
-    <cache name="module"
-           maxElementsInMemory="30"
-           eternal="true" />
-
-    <cache name="moduleList"
-           maxElementsInMemory="1"
-           eternal="true" />
-
     <!-- topic -->
     <cache name="topic"
            maxElementsInMemory="1000"
